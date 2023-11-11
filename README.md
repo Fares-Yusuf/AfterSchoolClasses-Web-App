@@ -31,7 +31,7 @@ To get started with the project, clone the repository to your local machine.
 
 ## Project Structure
 
-- `Classes.html`: HTML file containing the structure and layout of the web page.
+- `index.html`: HTML file containing the structure and layout of the web page.
 - `app.js`: JavaScript file containing the Vue.js logic for managing classes and cart functionality.
 - `Lessons.json`: JSON file containing data about different classes.
 - `style.css`: CSS file for styling the web page.
