@@ -103,8 +103,7 @@ var Classes = new Vue({
     disabled: true,
 
     // Displayed cart count
-    Cart: "Cart: " + itemCount,
-
+    Cart: " Cart: " + itemCount,
     // Array to store items in the cart
     cartArray: [],
 

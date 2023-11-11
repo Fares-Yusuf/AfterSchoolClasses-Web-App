@@ -11,6 +11,9 @@
     <!-- Import Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Import Font Awesome -->
+    <script src="https://kit.fontawesome.com/f20ba53394.js" crossorigin="anonymous"></script>
+
     <!-- Import CSS file -->
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="#" />
@@ -20,30 +23,34 @@
     <div id="Classes">
         <div class="container-fluid p-5 bg-dark text-white text-center">
             <h1 v-text="SiteName"></h1>
-            <!-- Create a search input field that updates as typing without button-->
-            <div class="d-flex justify-content-center ">
-                <input id="search" type="text" class="form-control" style="width: 19em;" placeholder="Search"
-                    aria-label="Search" v-model="searchText">
+            <div v-if='showClasses'>
+                <!-- Create a search input field that updates as typing without button-->
+                <div style="max-width: 50em;" class="d-flex justify-content-center input-group m-auto">
+                    <label class="input-group-text" for="search"><i class="fa-solid fa-magnifying-glass"></i></label>
+
+                    <input id="search" type="text" class="form-control" placeholder="Search" aria-label="Search"
+                        v-model="searchText">
+                </div>
+                <br>
+                <div style="max-width: 50em;" class="input-group m-auto">
+                    <label class="input-group-text" for="inputGroupSelect01"><i class="fa-solid fa-sort"></i></label>
+                    <select id="inputGroupSelect01" v-model="sortCriteria" class="form-select">
+                        <option selected value="title_asc">Title (Ascending)</option>
+                        <option value="title_desc">Title (Descending)</option>
+                        <option value="Location_asc">Location (Ascending)</option>
+                        <option value="Location_desc">Location (Descending)</option>
+                        <option value="Price_asc">Price (Ascending)</option>
+                        <option value="Price_desc">Price (Descending)</option>
+                        <option value="Space_asc">Spaces (Ascending)</option>
+                        <option value="Space_desc">Spaces (Descending)</option>
+                    </select>
+                </div>
             </div>
-            <br>
 
             <!-- Create a button aligned to the right -->
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button :disabled="disabled" @click="showCart()" class="btn btn-light me-md-2" type="button"
-                    v-text="Cart"></button>
-            </div>
-            <br>
-            <div style="width: 19em;" class="d-grid gap-2 d-md-flex">
-                <select v-model="sortCriteria" class="form-select">
-                    <option selected value="title_asc">Title (Ascending)</option>
-                    <option value="title_desc">Title (Descending)</option>
-                    <option value="Location_asc">Location (Ascending)</option>
-                    <option value="Location_desc">Location (Descending)</option>
-                    <option value="Price_asc">Price (Ascending)</option>
-                    <option value="Price_desc">Price (Descending)</option>
-                    <option value="Space_asc">Spaces (Ascending)</option>
-                    <option value="Space_desc">Spaces (Descending)</option>
-                </select>
+            <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1000;">
+                <button :disabled="disabled" @click="showCart()" class="btn btn-primary" type="button"><i
+                        class="fa-solid fa-cart-shopping"></i> {{Cart}}</button>
             </div>
         </div>
         <div v-if='showClasses'>
@@ -61,8 +68,11 @@
                                 <li v-text="'Location: '+item.Location" class="list-group-item"></li>
                                 <li v-text="'Price: '+'£' + item.Price" class="list-group-item"></li>
                                 <li class="list-group-item">
-                                    <template v-if="item.Quantity > 0">
-                                        Spaces Remaining: {{ item.Quantity }}
+                                    <template v-if="item.Quantity > 1">
+                                        {{ item.Quantity }} Spaces Available.
+                                    </template>
+                                    <template v-else-if="item.Quantity === 1">
+                                        Hurry {{ item.Quantity }} Space Remaining!
                                     </template>
                                     <template v-else>
                                         Fully Booked! Sorry.
@@ -115,16 +125,14 @@
                     <!-- Create fields to take user name and phone number before checkout -->
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Name</span>
-                        <input type="text" class="form-control" placeholder="Phone Number" aria-label="Phone Number"
-                            aria-describedby="basic-addon1">
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Phone Number</span>
                         <input type="text" class="form-control" placeholder="Username" aria-label="Username"
                             aria-describedby="basic-addon1">
                     </div>
-
-
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Number</span>
+                        <input id="" type="text" class="form-control" placeholder="Phone Number"
+                            aria-label="Phone Number" aria-describedby="basic-addon1">
+                    </div>
                     <div style="margin-top: 1%;" class="d-grid gap-1">
                         <button class="btn btn-primary" type="button">Checkout</button>
                     </div>
