@@ -147,7 +147,9 @@ var Classes = new Vue({
       // Disable cart button if cart is empty and showClasses is true
       if (itemCount == 0) {
         this.disabled = true;
-        this.showCart();
+        if (!this.showClasses) {
+          this.showCart();
+        }
       }
 
       // Remove item from cartArray if quantity is zero
