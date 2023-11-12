@@ -125,16 +125,17 @@
                     <!-- Create fields to take user name and phone number before checkout -->
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Name</span>
-                        <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-                            aria-describedby="basic-addon1">
+                        <input @input="userInfoValidation" v-model="userName" type="text" class="form-control"
+                            placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Number</span>
-                        <input id="" type="text" class="form-control" placeholder="Phone Number"
-                            aria-label="Phone Number" aria-describedby="basic-addon1">
+                        <input @input="userInfoValidation" v-model="phoneNumber" type="text" class="form-control"
+                            placeholder="Phone Number" aria-label="Phone Number" aria-describedby="basic-addon1">
                     </div>
                     <div style="margin-top: 1%;" class="d-grid gap-1">
-                        <button class="btn btn-primary" type="button">Checkout</button>
+                        <button :disabled="checkoutButton" @click="checkout" class="btn btn-primary"
+                            type="button">Checkout</button>
                     </div>
                 </div>
             </div>
