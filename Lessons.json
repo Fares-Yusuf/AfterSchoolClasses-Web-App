@@ -1,92 +1,92 @@
 {
-  "Maths": {
-    "id": "1",
-    "title": "Maths",
-    "description": "Mathematics course.",
-    "Image": "Images/Maths.png",
-    "Location": "Berlin",
-    "Price": 400,
-    "Quantity": 5
-  },
-  "Python": {
-    "id": "2",
-    "title": "Python",
-    "description": "Python programming course.",
-    "Image": "Images/Python.png",
-    "Location": "Dubai",
-    "Price": 500,
-    "Quantity": 5
-  },
-  "English": {
-    "id": "3",
-    "title": "English",
-    "description": "English language course.",
-    "Image": "Images/English.png",
-    "Location": "London",
-    "Price": 350,
-    "Quantity": 5
-  },
-  "Arabic": {
-    "id": 4,
-    "title": "Arabic",
-    "description": "Arabic language course.",
-    "Image": "Images/Arabic.png",
-    "Location": "Cairo",
-    "Price": 355,
-    "Quantity": 5
-  },
-  "French": {
-    "id": 5,
-    "title": "French",
-    "description": "French language course.",
-    "Image": "Images/French.png",
-    "Location": "Paris",
-    "Price": 450,
-    "Quantity": 5
-  },
-  "Art": {
-    "id": 6,
-    "title": "Art",
-    "description": "Art course.",
-    "Image": "Images/Art.png",
-    "Location": "Lebanon",
-    "Price": 400,
-    "Quantity": 5
-  },
-  "Java": {
-    "id": 7,
-    "title": "Java",
-    "description": "Java programming course.",
-    "Image": "Images/Java.png",
-    "Location": "Dubai",
-    "Price": 550,
-    "Quantity": 5
-  },
-  "Spanish": {
-    "id": 8,
-    "title": "Spanish",
-    "description": "Spanish language course.",
-    "Image": "Images/Spanish.png",
-    "Location": "Madrid",
-    "Price": 335,
-    "Quantity": 5
-  },
-  "Mandarin": {
-    "id": 9,
-    "title": "Mandarin",
-    "description": "Mandarin language course.",
-    "Image": "Images/Mandarin.png",
-    "Location": "Beijing",
-    "Price": 435,
-    "Quantity": 5
-  },
-  "Japanese": {
-    "id": 10,
-    "title": "Japanese",
-    "description": "Japanese language course.",
-    "Image": "Images/Japanese.png",
-    "Location": "Tokyo",
-    "Price": 235,
-    "Quantity": 5
-  }
+    "Maths": {
+        "id": "1",
+        "title": "Maths",
+        "description": "Mathematics course.",
+        "Image": "Images/Maths.png",
+        "Location": "Berlin",
+        "Price": 400,
+        "Quantity": 5
+    },
+    "Python": {
+        "id": "2",
+        "title": "Python",
+        "description": "Python programming course.",
+        "Image": "Images/Python.png",
+        "Location": "Dubai",
+        "Price": 500,
+        "Quantity": 5
+    },
+    "English": {
+        "id": "3",
+        "title": "English",
+        "description": "English language course.",
+        "Image": "Images/English.png",
+        "Location": "London",
+        "Price": 350,
+        "Quantity": 5
+    },
+    "Arabic": {
+        "id": 4,
+        "title": "Arabic",
+        "description": "Arabic language course.",
+        "Image": "Images/Arabic.png",
+        "Location": "Cairo",
+        "Price": 355,
+        "Quantity": 5
+    },
+    "French": {
+        "id": 5,
+        "title": "French",
+        "description": "French language course.",
+        "Image": "Images/French.png",
+        "Location": "Paris",
+        "Price": 450,
+        "Quantity": 5
+    },
+    "Art": {
+        "id": 6,
+        "title": "Art",
+        "description": "Art course.",
+        "Image": "Images/Art.png",
+        "Location": "Lebanon",
+        "Price": 400,
+        "Quantity": 5
+    },
+    "Java": {
+        "id": 7,
+        "title": "Java",
+        "description": "Java programming course.",
+        "Image": "Images/Java.png",
+        "Location": "Dubai",
+        "Price": 550,
+        "Quantity": 5
+    },
+    "Spanish": {
+        "id": 8,
+        "title": "Spanish",
+        "description": "Spanish language course.",
+        "Image": "Images/Spanish.png",
+        "Location": "Madrid",
+        "Price": 335,
+        "Quantity": 5
+    },
+    "Mandarin": {
+        "id": 9,
+        "title": "Mandarin",
+        "description": "Mandarin language course.",
+        "Image": "Images/Mandarin.png",
+        "Location": "Beijing",
+        "Price": 435,
+        "Quantity": 5
+    },
+    "Japanese": {
+        "id": 10,
+        "title": "Japanese",
+        "description": "Japanese language course.",
+        "Image": "Images/Japanese.png",
+        "Location": "Tokyo",
+        "Price": 235,
+        "Quantity": 5
+    }
 }
