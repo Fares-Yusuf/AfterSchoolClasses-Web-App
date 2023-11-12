@@ -1,17 +1,17 @@
 .card {
-  margin-bottom: 5%;
+    margin-bottom: 5%;
 }
 .card-img-top {
-  border-radius: 0%;
-  width: 90%;
-  object-fit: cover;
-  margin: auto;
+    border-radius: 0%;
+    width: 90%;
+    object-fit: cover;
+    margin: auto;
 }
 @media (max-width: 767px) {
-  /* reduce the size of the card img size by half */
-  .card-img-top {
-    width: 50%;
-    /* center */
-    margin: auto;
-  }
+    /* reduce the size of the card img size by half */
+    .card-img-top {
+        width: 50%;
+        /* center */
+        margin: auto;
+    }
 }
