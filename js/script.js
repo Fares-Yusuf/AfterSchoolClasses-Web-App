@@ -1,102 +1,3 @@
-// Custom sorting function
-function customSortedList(originalList, sortProperty, isAscending) {
-    // Helper function to handle string comparisons
-    function compareStrings(valueA, valueB) {
-        // Use localeCompare for string comparison in alphabetical order
-        // If isAscending is true, return result of ascending string comparison
-        // If isAscending is false, return result of descending string comparison
-        if (isAscending) {
-            return valueA.localeCompare(valueB);
-        } else {
-            return valueB.localeCompare(valueA);
-        }
-    }
-
-    // Helper function to handle numeric comparisons
-    function compareNumbers(valueA, valueB) {
-        // If isAscending is true, return result of ascending numeric comparison
-        // If isAscending is false, return result of descending numeric comparison
-        if (isAscending) {
-            return valueA - valueB;
-        } else {
-            return valueB - valueA;
-        }
-    }
-
-    // Implementing a simple sorting algorithm (e.g., bubble sort)
-    for (let i = 0; i < originalList.length - 1; i++) {
-        for (let j = 0; j < originalList.length - 1 - i; j++) {
-            let current = originalList[j];
-            let next = originalList[j + 1];
-
-            // Switch between different properties for sorting
-            switch (sortProperty) {
-                case "title":
-                    // Extract lowercase titles for case-insensitive string comparison
-                    if (
-                        compareStrings(
-                            current.title.toLowerCase(),
-                            next.title.toLowerCase()
-                        ) > 0
-                    ) {
-                        [originalList[j], originalList[j + 1]] = [
-                            next,
-                            current,
-                        ];
-                    }
-                    break;
-                case "Location":
-                    // Extract lowercase locations for case-insensitive string comparison
-                    if (
-                        compareStrings(
-                            current.Location.toLowerCase(),
-                            next.Location.toLowerCase()
-                        ) > 0
-                    ) {
-                        [originalList[j], originalList[j + 1]] = [
-                            next,
-                            current,
-                        ];
-                    }
-                    break;
-                case "Price":
-                    // Convert prices to numeric values for numerical comparison
-                    if (
-                        compareNumbers(
-                            parseFloat(current.Price),
-                            parseFloat(next.Price)
-                        ) > 0
-                    ) {
-                        [originalList[j], originalList[j + 1]] = [
-                            next,
-                            current,
-                        ];
-                    }
-                    break;
-                case "Space":
-                    // Convert quantities to numeric values for numerical comparison
-                    if (
-                        compareNumbers(
-                            parseFloat(current.Quantity),
-                            parseFloat(next.Quantity)
-                        ) > 0
-                    ) {
-                        [originalList[j], originalList[j + 1]] = [
-                            next,
-                            current,
-                        ];
-                    }
-                    break;
-                default:
-                    // Default to no sorting if an invalid property is provided
-                    break;
-            }
-        }
-    }
-    // Return the sorted list
-    return originalList.slice();
-}
-
 // Initialize item count for the cart
 let itemCount = 0;
 
@@ -223,18 +124,13 @@ var Classes = new Vue({
             );
             return !(isUserNameValid && isPhoneNumberValid);
         },
-        // Filter and sort the classesArray based on search and sort criteria
         filteredList: function () {
             // Extract values from classesArray for filtering
             let originalList = Object.values(this.classesArray);
 
-            // Filter the original list based on the search text
-            const filtered = originalList.filter((item) => {
+            // Filter the original list based on the search text using an Arrow function
+            const filteredClasses = mySearch(originalList, (item) => {
                 return (
-                    /* 
-                    I don't like includes because it doesn't make sense for searching. 
-                    No one searches for paris by typing ris without the pa but gonna do it for the sake of the assignment xD
-                    */
                     item.title
                         .toLowerCase()
                         .includes(this.searchText.toLowerCase()) ||
@@ -244,23 +140,19 @@ var Classes = new Vue({
                     item.Price.toString().startsWith(
                         this.searchText.toLowerCase()
                     )
-
-                    //   item.title.toLowerCase().startsWith(this.searchText.toLowerCase()) ||
-                    //   item.Location.toLowerCase().startsWith(this.searchText.toLowerCase()) ||
-                    //   item.Price.toString().startsWith(this.searchText.toLowerCase())
                 );
             });
 
-            // Return the filtered (and possibly sorted) list using customSortedList function
+            // Return the filteredClasses (and possibly sorted) list using mySort function
             if (this.sortCriteria) {
                 const [sortProperty, sortOrder] = this.sortCriteria.split("_");
                 const isAscending = sortOrder === "asc";
 
-                return customSortedList(filtered, sortProperty, isAscending);
+                return mySort(filteredClasses, sortProperty, isAscending);
             }
 
-            // Return the filtered list without sorting
-            return filtered;
+            // Return the filteredClasses list without sorting
+            return filteredClasses;
         },
     },
     created: async function () {
@@ -274,3 +166,112 @@ var Classes = new Vue({
         }
     },
 });
+
+/*
+
+~My custom sorting and searching functions~
+
+*/
+
+// Custom sorting function
+function mySort(originalList, sortProperty, isAscending) {
+    // Helper function to handle string comparisons
+    function compareStrings(valueA, valueB) {
+        // Use localeCompare for string comparison in alphabetical order
+        // If isAscending is true, return result of ascending string comparison
+        // If isAscending is false, return result of descending string comparison
+        if (isAscending) {
+            return valueA.localeCompare(valueB);
+        } else {
+            return valueB.localeCompare(valueA);
+        }
+    }
+
+    // Helper function to handle numeric comparisons
+    function compareNumbers(valueA, valueB) {
+        // If isAscending is true, return result of ascending numeric comparison
+        // If isAscending is false, return result of descending numeric comparison
+        if (isAscending) {
+            return valueA - valueB;
+        } else {
+            console.log(valueB - valueA);
+            return valueB - valueA;
+        }
+    }
+
+    // Bubble Sort algorithm
+    for (let i = 0; i < originalList.length - 1; i++) {
+        for (let j = 0; j < originalList.length - 1 - i; j++) {
+            let current = originalList[j];
+            let next = originalList[j + 1];
+
+            // Switch between different properties for sorting
+            switch (sortProperty) {
+                case "title":
+                    // Extract lowercase titles for case-insensitive string comparison
+                    if (
+                        compareStrings(
+                            current.title.toLowerCase(),
+                            next.title.toLowerCase()
+                        ) > 0
+                    ) {
+                        [originalList[j], originalList[j + 1]] = [
+                            next,
+                            current,
+                        ];
+                    }
+                    break;
+                case "Location":
+                    // Extract lowercase locations for case-insensitive string comparison
+                    if (
+                        compareStrings(
+                            current.Location.toLowerCase(),
+                            next.Location.toLowerCase()
+                        ) > 0
+                    ) {
+                        [originalList[j], originalList[j + 1]] = [
+                            next,
+                            current,
+                        ];
+                    }
+                    break;
+                case "Price":
+                    if (compareNumbers(current.Price, next.Price) > 0) {
+                        [originalList[j], originalList[j + 1]] = [
+                            next,
+                            current,
+                        ];
+                    }
+                    break;
+                case "Space":
+                    if (compareNumbers(current.Quantity, next.Quantity) > 0) {
+                        [originalList[j], originalList[j + 1]] = [
+                            next,
+                            current,
+                        ];
+                    }
+                    break;
+                default:
+                    // Default to no sorting if an invalid property is provided
+                    break;
+            }
+        }
+    }
+    // Return the sorted list
+    return originalList;
+}
+
+function mySearch(array, callback) {
+    let result = [];
+
+    // Iterate over each item in the array
+    for (let i = 0; i < array.length; i++) {
+        // If the callback function returns true for the item, add it to the result array
+        if (callback(array[i])) {
+            result.push(array[i]);
+        }
+    }
+
+    // Return the result array
+    return result;
+}
