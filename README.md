@@ -1,3 +1,5 @@
+#### Made by: Fares Yusuf Abdulla Yusuf
+
 # After School Club
 
 After School Club is a web application that allows users to explore and enroll in various courses offered by the club.
@@ -5,16 +7,10 @@ It provides a user-friendly interface to browse classes, add them to the cart, a
 
 ## Table of Contents
 
--   [Description](#description)
 -   [Features](#features)
 -   [Project Structure](#project-structure)
 -   [Dependencies](#dependencies)
 -   [How to Run](#how-to-run)
-
-## Description
-
-Made by: Fares Yusuf Abdulla Yusuf
-Coursework#1 for the module Web-Based Mobile App Development
 
 ### Prerequisites
 
