@@ -145,11 +145,24 @@ var Classes = new Vue({
             this.cartArray = [];
             // Update cart count and disable the button
             this.Cart = "Cart: 0";
+            itemCount = 0;
             this.checkoutButton = true;
+            // thank the user for their purchase
+            alert(
+                "Thank you for your purchase " +
+                    this.userName +
+                    "! We will contact you on your phone number " +
+                    this.phoneNumber +
+                    " to confirm your purchase."
+            );
+
             // Clear user info fields
             this.userName = "";
             this.phoneNumber = "";
-            alert("Checkout successful!");
+            if (!this.showClasses) {
+                this.disabled = true;
+                this.showCart();
+            }
         },
 
         // Add an item to the cart
@@ -198,8 +211,8 @@ var Classes = new Vue({
     computed: {
         //Function for checkout validation
         userInfoValidation() {
-            // const userNamePattern = /^[a-zA-Z]+$/;
-            const userNamePattern = /^[a-zA-Z\s]+$/;
+            // pattern for names min 2 letters and only letters and spaces allowed
+            const userNamePattern = /^[a-zA-Z]{2,}[a-zA-Z\s]*$/;
 
             // UK pattern for phone numbers
             const phoneNumberPattern =
@@ -208,7 +221,7 @@ var Classes = new Vue({
             const isPhoneNumberValid = phoneNumberPattern.test(
                 this.phoneNumber
             );
-            this.checkoutButton = !(isUserNameValid && isPhoneNumberValid);
+            return !(isUserNameValid && isPhoneNumberValid);
         },
         // Filter and sort the classesArray based on search and sort criteria
         filteredList: function () {

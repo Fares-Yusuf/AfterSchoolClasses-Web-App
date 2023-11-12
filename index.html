@@ -83,9 +83,6 @@
                                 <div class="d-grid gap-2 d-md-flex justify-content-center">
                                     <button style="width: 100%;" :disabled="item.Quantity === 0"
                                         @click="addToCart(item)" class="btn btn-success" type="button">Add item</button>
-                                    <button style="width: 100%;" :disabled="item.Quantity === 5"
-                                        @click="removeCart(item)" class="btn btn-danger" type="button">Remove
-                                        item</button>
                                 </div>
                             </div>
                         </div>
@@ -125,16 +122,16 @@
                     <!-- Create fields to take user name and phone number before checkout -->
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Name</span>
-                        <input @input="userInfoValidation" v-model="userName" type="text" class="form-control"
-                            placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                        <input v-model="userName" type="text" class="form-control" placeholder="Username"
+                            aria-label="Username" aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Number</span>
-                        <input @input="userInfoValidation" v-model="phoneNumber" type="text" class="form-control"
-                            placeholder="Phone Number" aria-label="Phone Number" aria-describedby="basic-addon1">
+                        <input v-model="phoneNumber" type="text" class="form-control" placeholder="Phone Number"
+                            aria-label="Phone Number" aria-describedby="basic-addon1">
                     </div>
                     <div style="margin-top: 1%;" class="d-grid gap-1">
-                        <button :disabled="checkoutButton" @click="checkout" class="btn btn-primary"
+                        <button :disabled="userInfoValidation" @click="checkout" class="btn btn-primary"
                             type="button">Checkout</button>
                     </div>
                 </div>
