@@ -156,13 +156,13 @@ var Classes = new Vue({
         },
     },
     created: async function () {
-        // Fetch classesArray data from Lessons.json
+        // Fetch classesArray data from the new API endpoint
         try {
-            const response = await fetch("Lessons.json");
+            const response = await fetch("http://localhost:3000/lessons");
             const data = await response.json();
             this.classesArray = data;
         } catch (error) {
-            console.error("Error fetching data from Lessons.json", error);
+            console.error("Error fetching data from the API", error);
         }
     },
 });
@@ -275,25 +275,3 @@ function mySearch(array, callback) {
     // Return the result array
     return result;
 }
-
-// Send a GET request to the server
-fetch("http://localhost:3000/")
-    // When the promise is fulfilled, handle the response
-    .then((response) => {
-        // If the response was not ok, throw an error
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
-        // Otherwise, parse the response as JSON
-        return response.json();
-    })
-    // Handle the parsed JSON data
-    .then((data) => {
-        // Log the data to the console
-        console.log("Data:", data);
-    })
-    // Catch any errors that occurred during the fetch
-    .catch((error) => {
-        // Log the error to the console
-        console.error("Error:", error);
-    });
