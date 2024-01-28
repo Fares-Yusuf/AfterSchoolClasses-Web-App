@@ -28,6 +28,7 @@ var Classes = new Vue({
         Cart: " Cart: " + itemCount,
         // Array to store items in the cart
         cartArray: [],
+        cartArray2: [],
 
         // Sorting criteria for classes
         sortCriteria: "title_asc",
@@ -45,27 +46,41 @@ var Classes = new Vue({
             const orderData = {
                 buyerName: this.userName,
                 phoneNumber: this.phoneNumber,
-                lessonIds: this.cartArray.map((item) => item.id),
-                numberOfSeats: this.cartArray.length,
+                lessonIds: this.cartArray2.map((item) => item.id),
+                numberOfSeats: itemCount,
             };
+            console.log(this.cartArray2);
 
             try {
-                // Send a POST request to the /orders endpoint
-                const response = await fetch(
-                    "https://afterschoollessons-env.eba-46im9ecw.eu-west-2.elasticbeanstalk.com/orders",
-                    {
-                        method: "POST",
+                // Send a POST request to the /orders endpoint with a copy of cartArray
+                const response = await fetch("http://localhost:3000/orders", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(orderData),
+                });
+
+                if (response.ok) {
+                    // Construct the lesson space update data
+                    const updateSpaceData = {
+                        lessonIds: orderData.lessonIds,
+                        // Send the quantity for each lesson separately
+                        lessonQuantities: this.cartArray2.map(
+                            (item) => item.Quantity
+                        ),
+                    };
+
+                    // Call the endpoint to update lesson space
+                    await fetch("http://localhost:3000/lessons/update-space", {
+                        method: "PUT",
                         headers: {
                             "Content-Type": "application/json",
                         },
-                        body: JSON.stringify(orderData),
-                    }
-                );
+                        body: JSON.stringify(updateSpaceData),
+                    });
 
-                if (response.ok) {
-                    console.log(response);
                     // Reset cart and show a success message
-                    this.cartArray = [];
                     this.Cart = "Cart: 0";
                     itemCount = 0;
                     this.checkoutButton = true;
@@ -86,7 +101,6 @@ var Classes = new Vue({
                 );
             }
         },
-
         // Add an item to the cart
         addToCart: function (item) {
             // Decrease quantity and update cart count
@@ -95,6 +109,7 @@ var Classes = new Vue({
             this.Cart = "Cart: " + itemCount;
             this.disabled = false;
             let index = this.cartArray.indexOf(item);
+            this.cartArray2.push(item);
 
             // Remove item from cart if already present
             if (this.cartArray.includes(item)) {
@@ -103,6 +118,8 @@ var Classes = new Vue({
 
             // Add the item to the cartArray at the same index
             this.cartArray.splice(index, 0, item);
+
+            // add the item to cartArray2
         },
 
         // Remove an item from the cart
@@ -120,8 +137,11 @@ var Classes = new Vue({
             }
 
             // Remove item from cartArray if quantity is zero
-            if (item.Quantity == 5) {
+            if (item.Quantity == 10) {
                 this.cartArray = this.cartArray.filter(
+                    (cartItem) => cartItem !== item
+                );
+                this.cartArray2 = this.cartArray2.filter(
                     (cartItem) => cartItem !== item
                 );
             }
@@ -146,55 +166,46 @@ var Classes = new Vue({
             return !(isUserNameValid && isPhoneNumberValid);
         },
         filteredList: function () {
-            // Extract values from classesArray for filtering
-            let originalList = Object.values(this.classesArray);
-
-            // Filter the original list based on the search text using an Arrow function
-            const filteredClasses = mySearch(originalList, (item) => {
-                return (
-                    item.title
-                        .toLowerCase()
-                        .includes(this.searchText.toLowerCase()) ||
-                    item.Location.toLowerCase().includes(
-                        this.searchText.toLowerCase()
-                    ) ||
-                    item.Price.toString().startsWith(
-                        this.searchText.toLowerCase()
-                    )
-                );
-            });
-
-            // Return the filteredClasses (and possibly sorted) list using mySort function
             if (this.sortCriteria) {
                 const [sortProperty, sortOrder] = this.sortCriteria.split("_");
                 const isAscending = sortOrder === "asc";
 
-                return mySort(filteredClasses, sortProperty, isAscending);
+                return mySort(this.classesArray, sortProperty, isAscending);
             }
 
-            // Return the filteredClasses list without sorting
-            return filteredClasses;
+            return this.classesArray;
         },
     },
+    // https://afterschoollessons-env.eba-46im9ecw.eu-west-2.elasticbeanstalk.com/lessons
     created: async function () {
         // Fetch classesArray data from the new API endpoint
         try {
-            const response = await fetch(
-                "https://afterschoollessons-env.eba-46im9ecw.eu-west-2.elasticbeanstalk.com/lessons"
-            );
+            const response = await fetch("http://localhost:3000/lessons");
             const data = await response.json();
             this.classesArray = data;
         } catch (error) {
             console.error("Error fetching data from the API", error);
         }
     },
+    watch: {
+        searchText: async function (newText) {
+            console.log("Search text changed:", newText);
+            try {
+                const endpoint = newText
+                    ? `http://localhost:3000/search?q=${encodeURIComponent(
+                          newText
+                      )}`
+                    : "http://localhost:3000/lessons";
+
+                const response = await fetch(endpoint);
+                const data = await response.json();
+                this.classesArray = data;
+            } catch (error) {
+                console.error("Error fetching data from the API", error);
+            }
+        },
+    },
 });
-
-/*
-
-~My custom sorting and searching functions~
-
-*/
 
 // Custom sorting function
 function mySort(originalList, sortProperty, isAscending) {
@@ -282,19 +293,4 @@ function mySort(originalList, sortProperty, isAscending) {
     }
     // Return the sorted list
     return originalList;
-}
-
-function mySearch(array, callback) {
-    let result = [];
-
-    // Iterate over each item in the array
-    for (let i = 0; i < array.length; i++) {
-        // If the callback function returns true for the item, add it to the result array
-        if (callback(array[i])) {
-            result.push(array[i]);
-        }
-    }
-
-    // Return the result array
-    return result;
 }

@@ -26,8 +26,8 @@
                 <div style="max-width: 50em;" class="d-flex justify-content-center input-group m-auto">
                     <label class="input-group-text" for="search"><i class="fa-solid fa-magnifying-glass"></i></label>
 
-                    <input id="search" type="text" class="form-control" placeholder="Search" aria-label="Search"
-                        v-model="searchText">
+                    <input id="search" type="text" class="form-control" aria-label="Search" v-model="searchText"
+                        placeholder="Search..." />
                 </div>
 
                 <br>
@@ -107,15 +107,15 @@
                             <ul class="list-group list-group-flush">
                                 <li v-text="'Location: '+item.Location" class="list-group-item"></li>
                                 <li v-text="'Price: '+'£' + item.Price" class="list-group-item"></li>
-                                <li v-text="'Quantity: '+ (5 - item.Quantity)" class="list-group-item"></li>
-                                <li v-text="'Total: '+'£' + item.Price * (5 - item.Quantity)" class="list-group-item">
+                                <li v-text="'Quantity: '+ (10 - item.Quantity)" class="list-group-item"></li>
+                                <li v-text="'Total: '+'£' + item.Price * (10 - item.Quantity)" class="list-group-item">
                                 </li>
                             </ul>
                             <div class="card-body">
                                 <div class="d-grid gap-2 d-md-flex justify-content-center">
                                     <button style="width: 100%;" :disabled="item.Quantity === 0"
                                         @click="addToCart(item)" class="btn btn-success" type="button">+</button>
-                                    <button style="width: 100%;" :disabled="item.Quantity === 5"
+                                    <button style="width: 100%;" :disabled="item.Quantity === 10"
                                         @click="removeCart(item)" class="btn btn-danger" type="button">-</button>
                                 </div>
                             </div>
