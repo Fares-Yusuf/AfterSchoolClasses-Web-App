@@ -63,6 +63,7 @@ var Classes = new Vue({
                 );
 
                 if (response.ok) {
+                    console.log(response);
                     // Reset cart and show a success message
                     this.cartArray = [];
                     this.Cart = "Cart: 0";
