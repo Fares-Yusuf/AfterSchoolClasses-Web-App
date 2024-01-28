@@ -40,29 +40,49 @@ var Classes = new Vue({
         showCart: function () {
             this.showClasses = !this.showClasses;
         },
-        // Checkout method
-        checkout: function () {
-            // Empty the cart
-            this.cartArray = [];
-            // Update cart count and disable the button
-            this.Cart = "Cart: 0";
-            itemCount = 0;
-            this.checkoutButton = true;
-            // thank the user for their purchase
-            alert(
-                "Thank you for your purchase " +
-                    this.userName +
-                    "! We will contact you on your phone number " +
-                    this.phoneNumber +
-                    " to confirm your purchase."
-            );
+        checkout: async function () {
+            // Construct the order data
+            const orderData = {
+                buyerName: this.userName,
+                phoneNumber: this.phoneNumber,
+                lessonIds: this.cartArray.map((item) => item.id),
+                numberOfSeats: this.cartArray.length,
+            };
 
-            // Clear user info fields
-            this.userName = "";
-            this.phoneNumber = "";
-            if (!this.showClasses) {
-                this.disabled = true;
-                this.showCart();
+            try {
+                // Send a POST request to the /orders endpoint
+                const response = await fetch(
+                    "https://afterschoollessons-env.eba-46im9ecw.eu-west-2.elasticbeanstalk.com/orders",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(orderData),
+                    }
+                );
+
+                if (response.ok) {
+                    // Reset cart and show a success message
+                    this.cartArray = [];
+                    this.Cart = "Cart: 0";
+                    itemCount = 0;
+                    this.checkoutButton = true;
+
+                    alert("Thank you for your purchase!");
+
+                    // Clear user info fields
+                    this.userName = "";
+                    this.phoneNumber = "";
+                } else {
+                    // Handle the case where the order creation fails
+                    alert("Failed to complete the purchase. Please try again.");
+                }
+            } catch (error) {
+                console.error("Error during checkout:", error);
+                alert(
+                    "An error occurred during checkout. Please try again later."
+                );
             }
         },
 
