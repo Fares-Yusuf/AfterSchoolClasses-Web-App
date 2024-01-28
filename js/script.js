@@ -158,7 +158,9 @@ var Classes = new Vue({
     created: async function () {
         // Fetch classesArray data from the new API endpoint
         try {
-            const response = await fetch("http://localhost:3000/lessons");
+            const response = await fetch(
+                "http://afterschoollessons-env.eba-46im9ecw.eu-west-2.elasticbeanstalk.com/lessons"
+            );
             const data = await response.json();
             this.classesArray = data;
         } catch (error) {
