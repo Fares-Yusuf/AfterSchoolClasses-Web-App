@@ -1,5 +1,5 @@
-{
-    "Maths": {
+[
+    {
         "id": "1",
         "title": "Maths",
         "description": "Mathematics course.",
@@ -8,7 +8,7 @@
         "Price": 400,
         "Quantity": 5
     },
-    "Python": {
+    {
         "id": "2",
         "title": "Python",
         "description": "Python programming course.",
@@ -17,7 +17,7 @@
         "Price": 500,
         "Quantity": 5
     },
-    "English": {
+    {
         "id": "3",
         "title": "English",
         "description": "English language course.",
@@ -26,7 +26,7 @@
         "Price": 350,
         "Quantity": 5
     },
-    "Arabic": {
+    {
         "id": 4,
         "title": "Arabic",
         "description": "Arabic language course.",
@@ -35,7 +35,7 @@
         "Price": 355,
         "Quantity": 5
     },
-    "French": {
+    {
         "id": 5,
         "title": "French",
         "description": "French language course.",
@@ -44,7 +44,7 @@
         "Price": 450,
         "Quantity": 5
     },
-    "Art": {
+    {
         "id": 6,
         "title": "Art",
         "description": "Art course.",
@@ -53,7 +53,7 @@
         "Price": 400,
         "Quantity": 5
     },
-    "Java": {
+    {
         "id": 7,
         "title": "Java",
         "description": "Java programming course.",
@@ -62,7 +62,7 @@
         "Price": 550,
         "Quantity": 5
     },
-    "Spanish": {
+    {
         "id": 8,
         "title": "Spanish",
         "description": "Spanish language course.",
@@ -71,7 +71,7 @@
         "Price": 335,
         "Quantity": 5
     },
-    "Mandarin": {
+    {
         "id": 9,
         "title": "Mandarin",
         "description": "Mandarin language course.",
@@ -80,7 +80,7 @@
         "Price": 435,
         "Quantity": 5
     },
-    "Japanese": {
+    {
         "id": 10,
         "title": "Japanese",
         "description": "Japanese language course.",
@@ -89,4 +89,4 @@
         "Price": 235,
         "Quantity": 5
     }
-}
+]

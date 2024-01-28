@@ -275,3 +275,25 @@ function mySearch(array, callback) {
     // Return the result array
     return result;
 }
+
+// Send a GET request to the server
+fetch("http://localhost:3000/")
+    // When the promise is fulfilled, handle the response
+    .then((response) => {
+        // If the response was not ok, throw an error
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        // Otherwise, parse the response as JSON
+        return response.json();
+    })
+    // Handle the parsed JSON data
+    .then((data) => {
+        // Log the data to the console
+        console.log("Data:", data);
+    })
+    // Catch any errors that occurred during the fetch
+    .catch((error) => {
+        // Log the error to the console
+        console.error("Error:", error);
+    });
