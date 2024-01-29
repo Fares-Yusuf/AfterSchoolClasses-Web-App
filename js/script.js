@@ -53,13 +53,16 @@ var Classes = new Vue({
 
             try {
                 // Send a POST request to the /orders endpoint with a copy of cartArray
-                const response = await fetch("http://localhost:3000/orders", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(orderData),
-                });
+                const response = await fetch(
+                    "https://afterschoollessons-env.eba-46im9ecw.eu-west-2.elasticbeanstalk.com/orders",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(orderData),
+                    }
+                );
 
                 if (response.ok) {
                     // Construct the lesson space update data
@@ -72,13 +75,16 @@ var Classes = new Vue({
                     };
 
                     // Call the endpoint to update lesson space
-                    await fetch("http://localhost:3000/lessons/update-space", {
-                        method: "PUT",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(updateSpaceData),
-                    });
+                    await fetch(
+                        "https://afterschoollessons-env.eba-46im9ecw.eu-west-2.elasticbeanstalk.com/lessons/update-space",
+                        {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(updateSpaceData),
+                        }
+                    );
 
                     // Reset cart and show a success message
                     this.Cart = "Cart: 0";
@@ -176,11 +182,12 @@ var Classes = new Vue({
             return this.classesArray;
         },
     },
-    // https://afterschoollessons-env.eba-46im9ecw.eu-west-2.elasticbeanstalk.com/lessons
     created: async function () {
         // Fetch classesArray data from the new API endpoint
         try {
-            const response = await fetch("http://localhost:3000/lessons");
+            const response = await fetch(
+                "https://afterschoollessons-env.eba-46im9ecw.eu-west-2.elasticbeanstalk.com/lessons"
+            );
             const data = await response.json();
             this.classesArray = data;
         } catch (error) {
@@ -192,10 +199,10 @@ var Classes = new Vue({
             console.log("Search text changed:", newText);
             try {
                 const endpoint = newText
-                    ? `http://localhost:3000/search?q=${encodeURIComponent(
+                    ? `https://afterschoollessons-env.eba-46im9ecw.eu-west-2.elasticbeanstalk.com/search?q=${encodeURIComponent(
                           newText
                       )}`
-                    : "http://localhost:3000/lessons";
+                    : "https://afterschoollessons-env.eba-46im9ecw.eu-west-2.elasticbeanstalk.com/lessons";
 
                 const response = await fetch(endpoint);
                 const data = await response.json();
