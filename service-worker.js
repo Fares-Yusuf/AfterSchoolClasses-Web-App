@@ -1,4 +1,4 @@
-// Create the Cache
+// Create The Cache
 
 var CACHE_NAME = "AfterSchoolClub-v1";
 
