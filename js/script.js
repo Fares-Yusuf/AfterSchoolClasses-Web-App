@@ -183,16 +183,28 @@ var Classes = new Vue({
         },
     },
     created: async function () {
-        // Fetch classesArray data from the new API endpoint
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("service-worker.js");
+        }
+        // Fetch classesArray data from Lessons.json
         try {
-            const response = await fetch(
-                "https://afterschoollessons-env.eba-46im9ecw.eu-west-2.elasticbeanstalk.com/lessons"
-            );
+            const response = await fetch("Lessons.json");
             const data = await response.json();
             this.classesArray = data;
         } catch (error) {
-            console.error("Error fetching data from the API", error);
+            console.error("Error fetching data from Lessons.json", error);
         }
+
+        // Fetch classesArray data from the new API endpoint
+        // try {
+        //     const response = await fetch(
+        //         "https://afterschoollessons-env.eba-46im9ecw.eu-west-2.elasticbeanstalk.com/lessons"
+        //     );
+        //     const data = await response.json();
+        //     this.classesArray = data;
+        // } catch (error) {
+        //     console.error("Error fetching data from the API", error);
+        // }
     },
     watch: {
         searchText: async function (newText) {
