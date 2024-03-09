@@ -18,6 +18,7 @@ var cacheFiles = [
     "images/Mandarin.png",
     "images/favicon.ico",
     "images/icon.png",
+    "images/icon-512.png",
 ];
 
 self.addEventListener("install", function (e) {
