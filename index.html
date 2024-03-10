@@ -50,6 +50,28 @@
                         <option value="Space_desc">Spaces (Descending)</option>
                     </select>
                 </div>
+
+                <!-- Create a Test Console to delete all caches and unregister service worker -->
+                <div v-if='TestConsole'>
+                    <br>
+                    <button @click="toggleShowTestConsole" class="btn btn-primary" type="button"> Test Console</button>
+                </div>
+
+                <br>
+
+                <div v-if='ShowTestConsole'>
+                    <div style="max-width: 50em;" class="btn-group">
+                        <button @click="testSaveToDB" type="button" class="btn btn-success">Test Save to DB</button>
+                        <button @click="deleteCaches" type="button" class="btn btn-danger">Delete Caches</button>
+                        <button @click="unregisterServiceWorkers" type="button" class="btn btn-warning">Unregister
+                            ServiceWorkers</button>
+                        <button @click="reloadPage" type="button" class="btn btn-light">Reload
+                            Page</button>
+                    </div>
+                    <br>
+                    <br>
+                    <strong>HTTPS Test: <a v-bind:href="lessonsURL" target="_blank">Link</a></strong>
+                </div>
             </div>
 
             <!-- Create a button aligned to the right -->

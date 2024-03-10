@@ -2,6 +2,7 @@
 let itemCount = 0;
 
 // let url = "http://localhost:3000";
+
 let url =
     "https://afterschoollessons-env.eba-46im9ecw.eu-west-2.elasticbeanstalk.com";
 
@@ -11,6 +12,11 @@ var Classes = new Vue({
     data: {
         // Toggle for displaying/hiding classes
         showClasses: true,
+
+        // Toggle for displaying/hiding Test Console
+        ShowTestConsole: false,
+        TestConsole: true,
+        lessonsURL: url + "/lessons",
 
         // user info
         userName: "",
@@ -45,6 +51,57 @@ var Classes = new Vue({
         showCart: function () {
             this.showClasses = !this.showClasses;
         },
+
+        // Toggle display of the TestConsole
+        toggleShowTestConsole: function () {
+            this.ShowTestConsole = !this.ShowTestConsole;
+        },
+        testSaveToDB: async function () {
+            // create a new Lesson object
+            const newLesson = {
+                id: 100,
+                title: "ABC Test Lesson",
+                description: "Test Description",
+                Image: "Images/Arabic.png",
+                Location: "Test Location",
+                Price: 100,
+                Quantity: 10,
+            };
+
+            fetch(url + "/lessons", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newLesson),
+            });
+            alert("Thank you for your purchase!");
+            this.deleteCaches();
+            this.reloadPage();
+        },
+
+        deleteCaches: function () {
+            caches.keys().then((cacheNames) => {
+                cacheNames.forEach((cacheName) => {
+                    caches.delete(cacheName);
+                });
+            });
+            console.log("Caches deleted");
+        },
+
+        reloadPage: function () {
+            window.location.reload();
+        },
+
+        unregisterServiceWorkers: function () {
+            navigator.serviceWorker.getRegistrations().then((registrations) => {
+                for (let registration of registrations) {
+                    registration.unregister();
+                }
+            });
+            console.log("ServiceWorkers Unregistered");
+        },
+
         checkout: async function () {
             // Construct the order data
             const orderData = {
