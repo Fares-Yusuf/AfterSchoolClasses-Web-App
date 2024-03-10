@@ -54,10 +54,14 @@ self.addEventListener("fetch", function (e) {
                         cache
                             .put(e.request, response.clone())
                             .catch(function (error) {
-                                console.error(
-                                    "[Service Worker] Cache error:",
-                                    error
-                                );
+                                if (
+                                    !error.message.includes("chrome-extension")
+                                ) {
+                                    console.error(
+                                        "[Service Worker] Cache error:",
+                                        error
+                                    );
+                                }
                             });
                         return response;
                     });

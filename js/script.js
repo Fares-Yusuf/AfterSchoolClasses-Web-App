@@ -1,6 +1,9 @@
 // Initialize item count for the cart
 let itemCount = 0;
 
+// Initialize the URL https://afterschoollessons-env.eba-46im9ecw.eu-west-2.elasticbeanstalk.com or http://localhost:3000
+let url = "http://localhost:3000";
+
 // Vue instance for managing classes and cart functionality
 var Classes = new Vue({
     el: "#Classes",
@@ -53,16 +56,13 @@ var Classes = new Vue({
 
             try {
                 // Send a POST request to the /orders endpoint with a copy of cartArray
-                const response = await fetch(
-                    "https://afterschoollessons-env.eba-46im9ecw.eu-west-2.elasticbeanstalk.com/orders",
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(orderData),
-                    }
-                );
+                const response = await fetch(url + "/orders", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(orderData),
+                });
 
                 if (response.ok) {
                     // Construct the lesson space update data
@@ -75,16 +75,13 @@ var Classes = new Vue({
                     };
 
                     // Call the endpoint to update lesson space
-                    await fetch(
-                        "https://afterschoollessons-env.eba-46im9ecw.eu-west-2.elasticbeanstalk.com/lessons/update-space",
-                        {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify(updateSpaceData),
-                        }
-                    );
+                    await fetch(url + "/lessons/update-space", {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(updateSpaceData),
+                    });
 
                     // Reset cart and show a success message
                     this.Cart = "Cart: 0";
@@ -183,38 +180,38 @@ var Classes = new Vue({
         },
     },
     created: async function () {
+        console.log("CREATED STARTED");
         if ("serviceWorker" in navigator) {
             navigator.serviceWorker.register("service-worker.js");
         }
         // Fetch classesArray data from Lessons.json
-        try {
-            const response = await fetch("Lessons.json");
-            const data = await response.json();
-            this.classesArray = data;
-        } catch (error) {
-            console.error("Error fetching data from Lessons.json", error);
-        }
-
-        // Fetch classesArray data from the new API endpoint
         // try {
-        //     const response = await fetch(
-        //         "https://afterschoollessons-env.eba-46im9ecw.eu-west-2.elasticbeanstalk.com/lessons"
-        //     );
+        //     const response = await fetch("Lessons.json");
         //     const data = await response.json();
         //     this.classesArray = data;
         // } catch (error) {
-        //     console.error("Error fetching data from the API", error);
+        //     console.error("Error fetching data from Lessons.json", error);
         // }
+
+        // Fetch classesArray data from the new API endpoint
+        try {
+            const response = await fetch(url + "/lessons");
+
+            console.log("This is the URL: " + url + "/lessons");
+
+            const data = await response.json();
+            this.classesArray = data;
+        } catch (error) {
+            console.error("Error fetching data from the API", error);
+        }
     },
     watch: {
         searchText: async function (newText) {
             console.log("Search text changed:", newText);
             try {
                 const endpoint = newText
-                    ? `https://afterschoollessons-env.eba-46im9ecw.eu-west-2.elasticbeanstalk.com/search?q=${encodeURIComponent(
-                          newText
-                      )}`
-                    : "https://afterschoollessons-env.eba-46im9ecw.eu-west-2.elasticbeanstalk.com/lessons";
+                    ? url + `/search?q=${encodeURIComponent(newText)}`
+                    : url + "/lessons";
 
                 const response = await fetch(endpoint);
                 const data = await response.json();
