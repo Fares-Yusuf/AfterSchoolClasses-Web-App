@@ -1,8 +1,9 @@
 // Initialize item count for the cart
 let itemCount = 0;
 
-// Initialize the URL https://afterschoollessons-env.eba-46im9ecw.eu-west-2.elasticbeanstalk.com or http://localhost:3000
-let url = "http://localhost:3000";
+// let url = "http://localhost:3000";
+let url =
+    "https://afterschoollessons-env.eba-46im9ecw.eu-west-2.elasticbeanstalk.com";
 
 // Vue instance for managing classes and cart functionality
 var Classes = new Vue({
