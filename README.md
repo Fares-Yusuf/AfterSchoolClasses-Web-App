@@ -42,5 +42,4 @@ It provides a user-friendly interface to browse classes, add them to the cart, a
 
 There are two ways to run this project.
 
-1. Using GitHub Pages [Link](https://fares-yusuf.github.io/AfterSchoolClasses-Web-App/).
-2. Cloning this repo using this [Link](https://github.com/Fares-Yusuf/AfterSchoolClasses-Web-App). After cloning, run the website using live server or live preview.
+Cloning this repo using this [Link](https://github.com/Fares-Yusuf/AfterSchoolClasses-Web-App). After cloning, run the website using live server or live preview.
